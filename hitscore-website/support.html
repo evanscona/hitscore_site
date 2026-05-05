@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — HitScore AI</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #7C3AED; --purple-dim: #EDE9FE;
+      --gray-100: #F3F4F6; --gray-200: #E5E7EB; --gray-400: #9CA3AF;
+      --gray-600: #4B5563; --black: #0D0D0D;
+      --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+    }
+    body { font-family: var(--font-body); background: #fff; color: var(--black); line-height: 1.7; }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--gray-200); padding: 16px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 9px; }
+    .nav-logo span { font-family: var(--font-display); font-weight: 800; font-size: 17px; color: var(--black); }
+    .nav-back { font-size: 14px; color: var(--purple); text-decoration: none; font-weight: 500; }
+    .nav-back:hover { text-decoration: underline; }
+
+    .hero {
+      background: linear-gradient(135deg, #F9F5FF 0%, #FAFAFA 100%);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 80px 28px 60px; text-align: center;
+    }
+    .page-tag { font-size: 12px; font-weight: 700; color: var(--purple); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+    .page-title { font-family: var(--font-display); font-size: 48px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 14px; }
+    .page-sub { font-size: 18px; color: var(--gray-600); max-width: 480px; margin: 0 auto; }
+
+    /* Contact cards */
+    .contact-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; padding: 60px 28px 0;
+    }
+    .contact-card {
+      background: #FAFAFA; border: 1px solid var(--gray-200);
+      border-radius: 20px; padding: 32px; text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .contact-card:hover { border-color: rgba(124,58,237,0.3); box-shadow: 0 8px 32px rgba(124,58,237,0.08); }
+    .contact-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--purple-dim); display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px; font-size: 22px;
+    }
+    .contact-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .contact-desc { font-size: 14px; color: var(--gray-600); margin-bottom: 18px; }
+    .contact-link {
+      display: inline-block; background: var(--purple); color: white;
+      padding: 10px 22px; border-radius: 999px; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .contact-link:hover { background: #6D28D9; }
+
+    /* FAQ */
+    .faq-section { max-width: 760px; margin: 0 auto; padding: 80px 28px 40px; }
+    .faq-title {
+      font-family: var(--font-display); font-size: 36px; font-weight: 800;
+      letter-spacing: -1px; margin-bottom: 40px;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--gray-200); padding: 24px 0;
+    }
+    .faq-q {
+      font-size: 17px; font-weight: 600; color: var(--black);
+      cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; gap: 16px;
+    }
+    .faq-q:hover { color: var(--purple); }
+    .faq-chevron { font-size: 18px; transition: transform 0.2s; flex-shrink: 0; }
+    .faq-a {
+      font-size: 15px; color: var(--gray-600); line-height: 1.7;
+      margin-top: 14px; display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    /* Response times */
+    .response-section {
+      max-width: 760px; margin: 0 auto; padding: 0 28px 80px;
+    }
+    .response-card {
+      background: #F9F5FF; border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 20px; padding: 32px;
+    }
+    .response-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 20px; }
+    .response-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid rgba(124,58,237,0.1);
+      font-size: 15px;
+    }
+    .response-row:last-child { border-bottom: none; }
+    .response-type { color: var(--black); font-weight: 500; }
+    .response-time { color: var(--purple); font-weight: 700; }
+
+    footer { border-top: 1px solid var(--gray-200); padding: 32px 28px; text-align: center; }
+    footer p { font-size: 13px; color: var(--gray-400); margin: 0; }
+    footer a { color: var(--gray-400); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--purple); }
+
+    @media (max-width: 700px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .page-title { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo.png" alt="HitScore AI" />
+    <span>HitScore AI</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="hero">
+  <div class="page-tag">Support Center</div>
+  <h1 class="page-title">How can we help?</h1>
+  <p class="page-sub">We're here to help you get the most out of HitScore AI.</p>
+</div>
+
+<!-- Contact Options -->
+<div class="contact-grid">
+  <div class="contact-card">
+    <div class="contact-icon">💬</div>
+    <div class="contact-title">General Support</div>
+    <div class="contact-desc">Questions about features, your account, or how to get started.</div>
+    <a href="mailto:support@gethitscore.com" class="contact-link">Email Support</a>
+  </div>
+  <div class="contact-card">
+    <div class="contact-icon">🔒</div>
+    <div class="contact-title">Privacy Requests</div>
+    <div class="contact-desc">Data access, deletion requests, or privacy-related concerns.</div>
+    <a href="mailto:privacy@gethitscore.com" class="contact-link">Privacy Team</a>
+  </div>
+  <div class="contact-card">
+    <div class="contact-icon">⚖️</div>
+    <div class="contact-title">Legal & Billing</div>
+    <div class="contact-desc">Subscription issues, refund requests, or legal inquiries.</div>
+    <a href="mailto:legal@gethitscore.com" class="contact-link">Legal Team</a>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <h2 class="faq-title">Frequently asked questions</h2>
+
+  <div class="faq-item open">
+    <div class="faq-q" onclick="toggle(this)">
+      How do I restore my Pro subscription?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">Open HitScore AI → Go to Profile → Tap "Manage Subscription" → Tap "Restore Purchases." Make sure you're signed in with the same Apple ID or Google account used to purchase. If that doesn't work, email <a href="mailto:support@gethitscore.com">support@gethitscore.com</a> with your order confirmation.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggle(this)">
+      How do I cancel my subscription?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">On iPhone: Settings → Apple ID → Subscriptions → HitScore AI → Cancel Subscription. On Android: Google Play Store → Menu → Subscriptions → HitScore AI → Cancel. Cancellation takes effect at the end of your current billing period.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggle(this)">
+      Why is my score low even though I think my post is good?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">Scores reflect predicted virality based on hook strength, emotional triggers, length, timing, and niche-fit. A good score doesn't mean a bad post — it means the AI sees ways to optimize it. Try using "Fix my post" or the Rephrase tool to see stronger alternatives. Your niche setting also affects scoring, so make sure it's set correctly in Settings.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggle(this)">
+      How do I set my niche?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">Go to Settings (bottom nav → Tools → Settings) and tap "Your Niche." You can choose from 11+ niches including Finance, Tech, Fitness, Entertainment, and more. Your niche personalizes every AI response — scores, coaching, trends, and content plans all adapt to your specific audience.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggle(this)">
+      How does the AI work?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">HitScore uses Claude (Anthropic's AI) to analyze and score content. Our models are trained on patterns from high-performing social media content across multiple niches. Scores are predictions based on hook strength, controversy potential, audience fit, timing, and trend alignment — not guarantees of virality.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggle(this)">
+      Are trends real-time?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">Yes. The Trends screen pulls live data and each trend has a 24-hour expiry. The freshest trend is always ranked #1. You can swipe to delete trends you've already seen, or tap "Use Trend" to instantly start scoring a post based on that topic.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggle(this)">
+      Is my content stored or used to train AI?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">Content you submit is processed in real-time to generate your score. We do not sell your content or use it to train AI models. Your account data and scoring history are stored securely. See our <a href="privacy.html">Privacy Policy</a> for full details.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggle(this)">
+      How do I delete my account?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">Go to Profile → scroll down → tap "Delete Account." You'll see a confirmation warning. Confirming will permanently delete all your data from our servers within 30 days. This action cannot be undone. If you have an active subscription, cancel it separately through Apple or Google before deleting your account.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggle(this)">
+      What platforms does HitScore AI support?
+      <span class="faq-chevron">▾</span>
+    </div>
+    <div class="faq-a">HitScore AI is designed for content creators on X (Twitter), Instagram, TikTok, LinkedIn, and Facebook. You can set your primary platform in onboarding or update it in Settings. AI scores, timing recommendations, and rephrasing suggestions all adapt to your selected platform.</div>
+  </div>
+</div>
+
+<!-- Response times -->
+<div class="response-section">
+  <div class="response-card">
+    <div class="response-title">Expected response times</div>
+    <div class="response-row">
+      <span class="response-type">General support</span>
+      <span class="response-time">Within 24 hours</span>
+    </div>
+    <div class="response-row">
+      <span class="response-type">Billing & subscription</span>
+      <span class="response-time">Within 48 hours</span>
+    </div>
+    <div class="response-row">
+      <span class="response-type">Privacy requests (GDPR/CCPA)</span>
+      <span class="response-time">Within 30 days</span>
+    </div>
+    <div class="response-row">
+      <span class="response-type">Legal inquiries</span>
+      <span class="response-time">Within 5 business days</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>
+    © 2026 HitScore AI. All rights reserved.
+    <a href="index.html">Home</a>
+    <a href="terms.html">Terms</a>
+    <a href="privacy.html">Privacy</a>
+  </p>
+</footer>
+
+<script>
+function toggle(el) {
+  el.closest('.faq-item').classList.toggle('open');
+}
+</script>
+</body>
+</html>
